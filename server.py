@@ -51,10 +51,10 @@ class MyWebServer(socketserver.BaseRequestHandler):
         ret = re.match(r"[^/]+(/[^ ]*)", requests[0].decode('utf-8'))
         if ret:
             file_name = ret.group(1)
-            print("*" * 50, file_name)
+            # print("*" * 50, file_name)
 
         file_name = file_name[1:]
-        print("*" * 50, file_name)
+        # print("*" * 50, file_name)
 
 
         try:
