@@ -65,6 +65,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
         #     return
 
         try:
+            assert (not re.match("../",file_name))
             file_path = "./www/" + file_name
             if path.isdir(file_path):
                 if file_path[-1] != "/":
@@ -79,6 +80,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
                 print(file_path)
                 f = open(file_path, "rb")
             else:
+                print(file_path)
                 f = open(file_path, "rb")
         except:
             response = "HTTP/1.1 404 NOT FOUND\r\n"
@@ -87,6 +89,8 @@ class MyWebServer(socketserver.BaseRequestHandler):
         else:
             content = f.read()
             f.close()
+            print(content)
+            print(2222222,file_path)
             response = "HTTP/1.1 200 OK\r\n"
             file = path.splitext(file_path)
             filename, type = file
