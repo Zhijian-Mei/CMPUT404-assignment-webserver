@@ -38,9 +38,6 @@ class MyWebServer(socketserver.BaseRequestHandler):
         # print("Got a request of: %s\n" % self.data)
 
         requests = self.data.splitlines()
-        for index, item in enumerate(requests):
-            print(index, item)
-        host = requests[1].decode('utf-8').split(" ")
 
         ret = re.match("GET", requests[0].decode('utf-8'))
         if not ret:
@@ -62,18 +59,18 @@ class MyWebServer(socketserver.BaseRequestHandler):
             file_path = "./www/" + file_name
             if path.isdir(file_path):
                 if file_path[-1] != "/":
-
+                    # print(file_path)
                     response = "HTTP/1.1 301 Moved Permanently\r\n"
                     response += "Location: " + "/" + file_name + "/\r\n"
                     response += "\r\n"
-
+                    # print(response)
                     self.request.sendall(bytearray(response, 'utf-8'))
                     return
                 file_path = file_path + "index.html"
-
+                # print(file_path)
                 f = open(file_path, "rb")
             else:
-
+                # print(file_path)
                 f = open(file_path, "rb")
         except:
             response = "HTTP/1.1 404 NOT FOUND\r\n"
@@ -82,7 +79,8 @@ class MyWebServer(socketserver.BaseRequestHandler):
         else:
             content = f.read()
             f.close()
-
+            # print(content)
+            # print(2222222,file_path)
             response = "HTTP/1.1 200 OK\r\n"
             file = path.splitext(file_path)
             filename, type = file
@@ -93,7 +91,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
             response += "\r\n"
             self.request.sendall(bytearray(response, 'utf-8'))
             self.request.sendall(bytearray(content))
-
+        # print(response)
 
     # def css(self,file_name):
 
