@@ -56,13 +56,6 @@ class MyWebServer(socketserver.BaseRequestHandler):
         file_name = file_name[1:]
         print("*" * 50, file_name)
 
-        # if file_name and file_name[-1] != "/":
-        #     response = "HTTP/1.1 301 Moved Permanently\r\n"
-        #     response += "Location: " + host[1] + "/" + file_name + "/\r\n"
-        #     response += "\r\n"
-        #     print(response)
-        #     self.request.sendall(bytearray(response, 'utf-8'))
-        #     return
 
         try:
             assert (not re.match("../",file_name))
